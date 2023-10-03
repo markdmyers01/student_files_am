@@ -6,7 +6,10 @@
 """
 from collections import defaultdict
 import sys
+from pathlib import Path
 
+x = Path('../resources/gettysburg.txt')
+print(x.resolve())
 
 class WordCounter:
     def __init__(self, filepath, min_wordsize=1, max_results=10, encoding='utf-8'):
@@ -33,6 +36,7 @@ if __name__ == '__main__':
     sample_file = '../resources/gettysburg.txt'
     results = []
     counter = WordCounter(sample_file, min_wordsize=5)
+    print(counter.word_dict, counter.max_results)
     try:
         print(counter.results(), counter.word_dict)
     except IOError as err:

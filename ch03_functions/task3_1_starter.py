@@ -27,69 +27,39 @@
       Step 5. Test your solution to ensure it works.
 
 """
-from collections import namedtuple
 import os
-import sys
+from ch03_functions import baseball
 
 working_dir = '../resources/baseball/'
 people_filename = 'People.csv'
 salaries_filename = 'Salaries.csv'
 
 input_year = 0
-salaries = []
-players = {}
-top_sals = []
 
-def salary_sort(sal_record):
-    return sal_record.salary
 
-filepath = os.path.join(working_dir, salaries_filename)
+sal_filepath = os.path.join(working_dir, salaries_filename)
 people_filepath = os.path.join(working_dir, people_filename)
 
 
-year_str = input('Enter a year (1985-2016): ')
-
-try:
-    with open(filepath, encoding='utf-8') as f_sal:
-        header = f_sal.readline().strip().split(',')
-        SalaryRecord = namedtuple('SalaryRecord', header)
-
-        for line in f_sal:
-            data = line.strip().split(',')
-            if year_str == data[0]:
-                try:
-                    data[4] = int(data[4])
-                except ValueError:
-                    data[4] = 0
-
-                sal_rec = SalaryRecord(*data)
-                salaries.append(sal_rec)
-except IOError as err:
-    print(err, file=sys.stderr)
-    sys.exit()
-
-try:
-    with open(people_filepath, encoding='utf-8') as f_people:
-        for line in f_people:
-            data = line.strip().split(',')
-            player_id, first_name, last_name = data[0], data[13], data[14]
-            players[player_id] = (first_name, last_name)
-except IOError as err:
-    print(err, file=sys.stderr)
-    sys.exit()
-
-salaries.sort(key=salary_sort, reverse=True)
+year_str = '2016' # input('Enter a year (1985-2016): ')
+top_sals = baseball.load_data(sal_filepath, people_filepath, year_str)
+# print(baseball.what_is_my_name)
 
 
 how_many = 10
 print_header = ['Name', 'Salary', 'Year']
-print('{0:35}{1:<20}{2:10}'.format(*print_header))
+print('{0:35}{1:>20}{2:>10}'.format(*print_header))
+print('{0:-<75}'.format(''))
 
-for salary_record in salaries[:how_many]:
-    player_id = salary_record.playerID
-    (first_name, last_name) = players[player_id]
+for salary_info in top_sals[:how_many]:
+    first_name = salary_info[0]
+    last_name = salary_info[1]
     name = first_name + ' ' + last_name
-    salary = f'${salary_record.salary:<19,.2f}'
-    year = salary_record.yearID
+    salary = f'${salary_info[2]:,}'
+    year = salary_info[3]
 
-    print(f'{name:35}{salary:<}{year:<10}')
+    print(f'{name:35}{salary:>20}{year:>10}')
+
+sal_tot = f'${sum([salary_info[2] for salary_info in top_sals[:how_many]]):,}'
+print('{0:-<75}'.format(''))
+print('{0:>35}{1:>20}'.format('Total Salary:', sal_tot))

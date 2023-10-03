@@ -16,5 +16,12 @@ class Contact:
 
 
 c = Contact('John Smith', '123 Main St.')
+d = Contact('John Smith', '123 Main St.')
 print(c.name)
 print(c, type(c))
+c.name = 'Joe Jones'
+print(c)
+print(d)
+
+c.foo = 'bar'
+print(c.foo)

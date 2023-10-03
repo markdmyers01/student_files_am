@@ -16,10 +16,22 @@
 import os
 import shutil
 
+temp = './temp'
+temp2 = './temp2'
+temp_temp2 = './temp/temp2'
+
+if not os.path.exists(temp):
+    os.mkdir(temp)
+else:
+    shutil.rmtree(temp)
+    os.mkdir(temp)
 
 for f in os.listdir('.'):
     if f.endswith('.py'):
-        shutil.copy(f, './temp')
+        shutil.copy(f, temp)
 
-shutil.copytree('./temp', './temp/temp2')
-shutil.move('./temp/temp2', '.')
+if os.path.exists(temp2):
+    shutil.rmtree(temp2)
+
+shutil.copytree(temp, temp_temp2)
+shutil.move(temp_temp2, '.')

@@ -17,3 +17,6 @@ class RaceCar:
         self.speed += self.ACCELERATION
         if self.speed > self.MAX_SPEED:
             self.speed = self.__class__.MAX_SPEED
+
+car1 = RaceCar
+print(car1.MAX_SPEED)
