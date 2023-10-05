@@ -27,6 +27,7 @@ for p in working_dir.glob('**/*'):
 print()
 print('Getting only files (as Path objects)...')
 files_only = [p for p in working_dir.iterdir() if p.is_file()]
+print(files_only[:5])
 print([p.name for p in files_only])
 
 print()

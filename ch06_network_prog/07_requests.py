@@ -11,8 +11,11 @@ print(r.url)
 print(r.status_code)
 print(r.headers)
 print(r.request.headers)
-print(r.text)
+# print(r.text)
 print(r.json())
+my_dict = r.json()
+print(type(my_dict), my_dict['slideshow'])
+
 
 
 # r = requests.post("http://someURL", data = {'key': 'value'})

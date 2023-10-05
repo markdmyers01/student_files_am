@@ -28,7 +28,7 @@ find('Four', speech)
 matchobj = re.search('seven', speech)
 print(type(matchobj))
 if matchobj:
-    print(f'seven found at position: {matchobj.start()}')
+    print(f'seven found at position: {matchobj.start()} end: {matchobj.end()} {matchobj.span()}')
 
 
 

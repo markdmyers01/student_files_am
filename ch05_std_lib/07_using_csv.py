@@ -10,7 +10,7 @@ import sys
 
 airports = []
 try:
-    with open('../resources/airports.dat', encoding='utf8') as f:
+    with open('../resources/airports.dat', encoding='utf-8-sig') as f:
         try:
             for row in csv.reader(f):
                 airports.append(row)

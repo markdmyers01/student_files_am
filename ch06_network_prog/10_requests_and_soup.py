@@ -22,7 +22,7 @@ print('-----')
 #       change.  If this line generates an error, you should follow steps discussed
 #       in the slides for using browser dev tools to identify and correct the selector
 #       (as of this writing, the following selector works
-selector = '#cdc-homepage-hero h1'
+selector = '.cmp-teaser__title'
 headline = soup.select(selector)                # select() accepts CSS selectors
 if headline:
     print(headline[0].text)                     # Use .strip() to remove whitespace

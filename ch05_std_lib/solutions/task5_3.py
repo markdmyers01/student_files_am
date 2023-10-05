@@ -17,7 +17,7 @@ fields = ['title', 'description', 'pubDate']
 Item = namedtuple('Item', fields)
 
 
-def parse_feed(feed='', use_archived=False):
+def parse_feed(feed='', use_archived=True):
     try:
         if use_archived:
             tree = ET.parse('archived.xml')

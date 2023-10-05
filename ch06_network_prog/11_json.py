@@ -6,12 +6,13 @@
 from collections import namedtuple
 import datetime
 import json
-
+from numbers import Number
 
 # converts a dictionary into JSON format
 obj = {'task': 'run 5 miles', 'goal': 40}
 print('obj is converted to a JSON string:')
-print(json.dumps(obj, indent=4))
+print(type(json.dumps(obj, indent=4)))
+
 
 
 # converts a namedtuple object to a JSON format
@@ -19,12 +20,18 @@ Contact = namedtuple('Contact', 'first last age email')
 contact = Contact('John',  'Smith',   43, 'jsbrony@yahoo.com')
 print('\nContact namedtuple is converted to a JSON string:')
 print(json.dumps(contact._asdict(), indent=4))
+print(contact._asdict())
 
 
 # converts JSON string into Python objects (dictionaries)
 print('\nJSON string converted to a dict:')
 new_obj = json.loads('{"first": "John","last": "Smith","age": 43,"email": "jsbrony@yahoo.com"}')
 print(new_obj)
+
+list1 = []
+for key, val in new_obj.items():
+    list1.append((key, val))
+print(list1)
 
 
 # Class objects converted to JSON
@@ -39,6 +46,8 @@ class Player:
 print('\nA Player object is converted to JSON:')
 p1 = Player('John', 'Smith', 30000000, 1985)
 print(json.dumps(p1, default=lambda player: player.__dict__))
+
+print(p1.__dict__)
 
 
 # what about non-serializable fields such as birthdate???
@@ -67,6 +76,8 @@ class PlayerEncoder(json.JSONEncoder):
         except (AttributeError, TypeError):
             if isinstance(obj, datetime.date):
                 result = obj.isoformat()
+            elif isinstance(obj, Number):
+                result = float(obj)
             else:
                 result = 'unable to determine'
 

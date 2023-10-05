@@ -18,7 +18,7 @@ url403 = 'https://httpbin.org/status/403'
 
 
 try:
-    with urlopen(url200) as f:
+    with urlopen(url403) as f:
         results = f.read().decode('utf-8')
         print(results)
 except HTTPError as err:
@@ -28,7 +28,8 @@ except HTTPError as err:
             case 403:
                 print('Access denied.', file=sys.stderr)
             case _:
-                print('An HTTP error occurred.', file=sys.stderr)
+                # print('An HTTP error occurred.', file=sys.stderr)
+                pass
 except URLError as err:
     print(f'Error: {err}', file=sys.stderr)
 
@@ -37,7 +38,7 @@ print('\n-----------\n')
 print('Example of pattern matching of match-case...')
 
 # The pattern matching feature of the match-case control...
-expressions = 'one', 1, (1, ), (1, 2, 3), [1, 2, 4], (1, 2, 4, 5, 3), 2
+expressions = ('one', 1, (1, ), (1, 2, 3), [1, 2, 4], (1, 2, 4, 5, 3), 2)
 
 for expr in expressions:
     match expr:
